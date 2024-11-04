@@ -52,10 +52,7 @@ def chat_with_liya(prompt, session_id):
     # Retrieve the prompt from MongoDB
     stored_prompt = prompts_collection.find_one()  # Adjust this if needed to fetch a specific prompt
     system_message = stored_prompt['prompt'] if stored_prompt else (
-        "你是莉亞，一位24歲的半精靈神秘學學徒和藥草師，擁有一頭波浪般的銀色長髮，"
-        "穿著深綠色的長袍，性格溫和且有親和力，善於藥草治療與符文魔法，"
-        "對未知事物充滿好奇，並小心保護自己擁有的秘密。"
-        "請依據角色設定回答玩家的問題，保持神秘和自然的氣息。"
+        " "
     )
 
     messages = [
