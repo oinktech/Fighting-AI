@@ -72,7 +72,7 @@ function typeLiyaResponse(response) {
     const chatBox = document.getElementById("chat-box");
     const liyaMessage = document.createElement("div"); // 使用 div 而不是 p，因為要顯示 HTML 標籤
     liyaMessage.classList.add("liya-message", "fade-in");
-    liyaMessage.innerHTML = `<strong><img src='https://techieai.onrender.com/static/bot.jpg' class='bot-head' alt='Techie'></img>AI:</strong> `;
+    liyaMessage.innerHTML = `<strong><img src='https://fighting-ai.onrender.com/static/bot.jpg' class='bot-head' alt='Techie'></img>AI:</strong> `;
     
     response = formatResponse(response); // 格式化響應
     liyaMessage.innerHTML += response; // 將格式化後的響應添加到消息中
