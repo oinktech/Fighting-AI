@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理員儀表板</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 引入 Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .admin-container {
+            margin-top: 50px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .prompt-list {
+            margin-bottom: 20px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container admin-container">
+        <h1>管理員儀表板</h1>
+        <h2>提示詞列表</h2>
+        <ul class="list-group prompt-list">
+            {% for prompt in prompts %}
+                <li class="list-group-item">{{ prompt.prompt }}</li>
+            {% endfor %}
+        </ul>
+        <h2>新增提示詞</h2>
+        <form id="add-prompt-form">
+            <div class="form-group">
+                <input type="text" id="new-prompt" class="form-control" placeholder="輸入新提示詞" required>
+            </div>
+            <button type="submit" class="btn btn-success">新增提示詞</button>
+        </form>
+        <div id="response-message"></div>
+        <a href="/admin/logout" class="btn btn-danger mt-3">登出</a>
+    </div>
+
+    <script>
+        document.getElementById("add-prompt-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const prompt = document.getElementById("new-prompt").value;
+
+            fetch("/admin/add_prompt", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ prompt: prompt })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.response);
+                if (data.response === "提示詞已新增。") {
+                    location.reload(); // 重新加載頁面以顯示新增的提示詞
+                }
+            });
+        });
+    </script>
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
